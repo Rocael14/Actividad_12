@@ -24,7 +24,7 @@ def quick_sort(lista):
 
     return quick_sort(menores)+iguales+quick_sort(mayores)
 
-
+repartidores = {}
 while True:
     menu()
     try:
@@ -33,8 +33,14 @@ while True:
             case 1:
                 print("Pedidos Repartidos")
                 cantidad_repartidos = int(input("Ingrese la cantidad de repartidores: "))
+                for i in range(cantidad_repartidos):
+                    nombre_repartido = input(f"Ingrese el nombre del repartido #{i + 1}: ")
+                    cantidad_paquetes_entregados = int(input(f"Ingrese la cantidad de paquetes entregados por el repartidor {nombre_repartido}: "))
+                    zona_asignada = input("Ingrese la zona asignada: ")
+                    repartidores[nombre_repartido] = {"paquetes":cantidad_paquetes_entregados , "zona": zona_asignada}
             case 2:
                 print("Ordenar repartidores")
+
             case 3:
                 print("Buscar Repartido")
             case 4:
