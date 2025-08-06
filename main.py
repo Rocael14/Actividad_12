@@ -18,13 +18,14 @@ def quick_sort(lista):
         return lista
 
     pivote = lista[0]
-    menores = [x for x in lista[1:] if x < pivote]
-    iguales = [x for x in lista if x == pivote]
-    mayores = [x for x in lista[1:] if x > pivote]
+    menores = [x for x in lista[1:] if x[1]["paquetes"] < pivote[1]["paquetes"]]
+    iguales = [x for x in lista if x[1]["paquetes"] == pivote[1]["paquetes"]]
+    mayores = [x for x in lista[1:] if x[1]["paquetes"] > pivote[1]["paquetes"]]
 
-    return quick_sort(menores)+iguales+quick_sort(mayores)
+    return quick_sort(mayores) + iguales + quick_sort(menores)
 
 repartidores = {}
+lista_repartidores = []
 while True:
     menu()
     try:
@@ -40,9 +41,16 @@ while True:
                     repartidores[nombre_repartido] = {"paquetes":cantidad_paquetes_entregados , "zona": zona_asignada}
             case 2:
                 print("Ordenar repartidores")
+                lista_repartidores = list(repartidores.items())
+                ordenamiento = quick_sort(lista_repartidores)
+                for nombre, datos in ordenamiento:
+                    print(f"{nombre}: {datos['paquetes']} paquetes - Zona {datos['zona']}")
 
             case 3:
                 print("Buscar Repartido")
+                repartidor_a_buscar = input("Ingrese el repartidor a buscar: ")
+                resultado_busqueda = busqueda_por_valor(repartidor_a_buscar, lista_repartidores)
+
             case 4:
                 print("Estadisticas")
             case 5:
